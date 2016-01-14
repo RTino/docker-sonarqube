@@ -8,7 +8,7 @@ ENV SONARQUBE_HOME /opt/sonarqube
 EXPOSE 9000
 
 # Database configuration
-# Defaults to using H2
+# Defaults to using local H2 and REWE defaults
 ENV SONARQUBE_JDBC_USERNAME sonar
 ENV SONARQUBE_JDBC_PASSWORD sonar
 ENV SONARQUBE_JDBC_URL jdbc:h2:tcp://localhost:9092/sonar
@@ -33,6 +33,8 @@ RUN set -x \
 	&& mv sonarqube-$SONAR_VERSION sonarqube \
 	&& rm sonarqube.zip* \
 	&& rm -rf $SONARQUBE_HOME/bin/*
+
+ADD plugins/* /opt/sonarqube/extensions/plugins/
 
 VOLUME ["$SONARQUBE_HOME/data", "$SONARQUBE_HOME/extensions"]
 

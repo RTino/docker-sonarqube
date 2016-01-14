@@ -1,14 +1,20 @@
 #!/bin/bash
 set -e
 
+echo "sonar.security.realm=Crowd" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "sonar.security.localUsers=admin" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "sonar.authenticator.downcase=true" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "sonar.security.updateUserAttributes=true" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "sonar.authenticator.class: org.sonar.plugins.crowd.CrowdAuthenticator" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "crowd.url: ${SONARQUBE_CROWD_URL}" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "crowd.application: ${SONARQUBE_CROWD_APPLICATION}" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+echo "crowd.password: $SONARQUBE_CROWD_PASSWORD" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+
 exec java -jar "lib/sonar-application-$SONAR_VERSION.jar" \
 		  -Dsonar.log.console=true \
 		  -Dsonar.jdbc.username="$SONARQUBE_JDBC_USERNAME" \
 		  -Dsonar.jdbc.password="$SONARQUBE_JDBC_PASSWORD" \
 		  -Dsonar.jdbc.url="$SONARQUBE_JDBC_URL" \
-		  -Dcrowd.url="$SONARQUBE_CROWD_URL" \
-		  -Dcrowd.application="$SONARQUBE_CROWD_APPLICATION" \
-		  -Dcrowd.password="$SONARQUBE_CROWD_PASSWORD"
 		  -Dsonar.web.javaAdditionalOpts="-Djava.security.egd=file:/dev/./urandom" \
 		  -Dsonar.jdbc.username=sonar \
 		  -Dsonar.jdbc.password=sonar \
