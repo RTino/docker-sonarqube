@@ -16,8 +16,6 @@ exec java -jar "lib/sonar-application-$SONAR_VERSION.jar" \
 		  -Dsonar.jdbc.password="$SONARQUBE_JDBC_PASSWORD" \
 		  -Dsonar.jdbc.url="$SONARQUBE_JDBC_URL" \
 		  -Dsonar.web.javaAdditionalOpts="-Djava.security.egd=file:/dev/./urandom" \
-		  -Dsonar.jdbc.username=sonar \
-		  -Dsonar.jdbc.password=sonar \
 		  -Dsonar.jdbc.maxActive=20 \
 		  -Dsonar.jdbc.maxIdle=5 \
 		  -Dsonar.jdbc.minIdle=2 \
