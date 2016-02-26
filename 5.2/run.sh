@@ -1,14 +1,21 @@
 #!/bin/bash
 set -e
 
-echo "sonar.security.realm=Crowd" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "sonar.security.localUsers=admin" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "sonar.authenticator.downcase=true" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "sonar.security.updateUserAttributes=true" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "sonar.authenticator.class: org.sonar.plugins.crowd.CrowdAuthenticator" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "crowd.url: ${SONARQUBE_CROWD_URL}" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "crowd.application: ${SONARQUBE_CROWD_APPLICATION}" >> "${SONARQUBE_HOME}/conf/sonar.properties"
-echo "crowd.password: $SONARQUBE_CROWD_PASSWORD" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+config_lines=(
+"sonar.security.realm=Crowd"
+"sonar.security.localUsers=admin"
+"sonar.authenticator.downcase=true"
+"sonar.security.updateUserAttributes=true"
+"sonar.authenticator.class: org.sonar.plugins.crowd.CrowdAuthenticator"
+"crowd.url: ${SONARQUBE_CROWD_URL}"
+"crowd.application: ${SONARQUBE_CROWD_APPLICATION}"
+"crowd.password: ${SONARQUBE_CROWD_PASSWORD}"
+)
+
+for line in "${config_lines[@]}"
+do
+	grep -q "^${line}\$" "${SONARQUBE_HOME}/conf/sonar.properties" || echo "$line" >> "${SONARQUBE_HOME}/conf/sonar.properties"
+done
 
 exec java -jar "lib/sonar-application-$SONAR_VERSION.jar" \
 		  -Dsonar.log.console=true \
