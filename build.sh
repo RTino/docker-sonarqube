@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# So hab ich das einfach immer gemacht
+# So kann man das machen
 cd 5.2 &&
-docker build --tag rtino/rewe-sonarqube .
+docker build --tag teamentropy/rewe-sonarqube .
 
 # Anschliessend das neuste image taggen und pushen. Ca so:
-#docker tag -f <hash> rtino/rewe-sonarqube
-#docker push rtino/rewe-sonarqube
+#docker tag <hash> teamentropy/sonarqube
+#docker push teamentropy/sonarqube
