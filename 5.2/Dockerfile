@@ -12,7 +12,7 @@ EXPOSE 9000
 ENV SONARQUBE_JDBC_USERNAME sonar
 ENV SONARQUBE_JDBC_PASSWORD sonar
 ENV SONARQUBE_JDBC_URL jdbc:h2:tcp://localhost:9092/sonar
-ENV SONARQUBE_CROWD_URL https://crowd.rewe-digital.com/crowd/
+ENV SONARQUBE_CROWD_URL https://crowd.acompany.com/crowd/
 ENV SONARQUBE_CROWD_APPLICATION ldap-con
 ENV SONARQUBE_CROWD_PASSWORD replaceme
 
